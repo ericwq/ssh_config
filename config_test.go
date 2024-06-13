@@ -125,9 +125,14 @@ func TestGetIdentities(t *testing.T) {
 	if err != nil {
 		t.Errorf("expected nil err, got %v", err)
 	}
-	if len(val) != 1 || val[0] != "~/.ssh/identity" {
-		t.Errorf("expected [\"~/.ssh/identity\"], got %v", val)
+	for i := range defaultProtocol2Identities {
+		if val[i] != defaultProtocol2Identities[i] {
+			t.Errorf("expected %v, got %v", val[i], defaultProtocol2Identities[i])
+		}
 	}
+	// if len(val) != 1 || val[0] != "~/.ssh/identity" {
+	// 	t.Errorf("expected [\"~/.ssh/identity\"], got %v", val)
+	// }
 }
 
 func TestGetInvalidPort(t *testing.T) {

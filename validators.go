@@ -117,7 +117,7 @@ var defaults = map[string]string{
 	// HostName has a dynamic default (the value passed at the command line).
 
 	strings.ToLower("IdentitiesOnly"): "no",
-	strings.ToLower("IdentityFile"):   "~/.ssh/identity",
+	// strings.ToLower("IdentityFile"):   "~/.ssh/identity",
 
 	// IPQoS has a dynamic default based on interactive or non-interactive
 	// sessions.
@@ -163,21 +163,27 @@ var defaults = map[string]string{
 
 // these identities are used for SSH protocol 2
 var defaultProtocol2Identities = []string{
-	"~/.ssh/id_dsa",
-	"~/.ssh/id_ecdsa",
-	"~/.ssh/id_ed25519",
 	"~/.ssh/id_rsa",
+	"~/.ssh/id_ecdsa",
+	"~/.ssh/id_ecdsa_sk",
+	"~/.ssh/id_ed25519",
+	"~/.ssh/id_ed25519_sk",
+	"~/.ssh/id_dsa",
+	// "~/.ssh/id_dsa",
+	// "~/.ssh/id_ecdsa",
+	// "~/.ssh/id_ed25519",
+	// "~/.ssh/id_rsa",
 }
 
 // these directives support multiple items that can be collected
 // across multiple files
 var pluralDirectives = map[string]bool{
-	"CertificateFile": true,
-	"IdentityFile":    true,
-	"DynamicForward":  true,
-	"RemoteForward":   true,
-	"SendEnv":         true,
-	"SetEnv":          true,
+	strings.ToLower("CertificateFile"): true,
+	strings.ToLower("IdentityFile"):    true,
+	strings.ToLower("DynamicForward"):  true,
+	strings.ToLower("RemoteForward"):   true,
+	strings.ToLower("SendEnv"):         true,
+	strings.ToLower("SetEnv"):          true,
 }
 
 // SupportsMultiple reports whether a directive can be specified multiple times.

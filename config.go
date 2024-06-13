@@ -8,7 +8,7 @@
 // the host name to match on ("example.com"), and the second argument is the key
 // you want to retrieve ("Port"). The keywords are case insensitive.
 //
-// 		port := ssh_config.Get("myhost", "Port")
+//	port := ssh_config.Get("myhost", "Port")
 //
 // You can also manipulate an SSH config file and then print it or write it back
 // to disk.
@@ -220,6 +220,10 @@ func (u *UserSettings) GetStrict(alias, key string) (string, error) {
 	if err2 != nil || val2 != "" {
 		return val2, err2
 	}
+
+	if key == "IdentityFile" && SupportsMultiple(key) {
+		return defaultProtocol2Identities[0], nil
+	}
 	return Default(key), nil
 }
 
@@ -251,7 +255,10 @@ func (u *UserSettings) GetAllStrict(alias, key string) ([]string, error) {
 	if err2 != nil || val2 != nil {
 		return val2, err2
 	}
-	// TODO: IdentityFile has multiple default values that we should return.
+
+	if key == "IdentityFile" && SupportsMultiple(key) {
+		return defaultProtocol2Identities, nil
+	}
 	if def := Default(key); def != "" {
 		return []string{def}, nil
 	}
@@ -829,7 +836,7 @@ func init() {
 func newConfig() *Config {
 	return &Config{
 		Hosts: []*Host{
-			&Host{
+			{
 				implicit: true,
 				Patterns: []*Pattern{matchAll},
 				Nodes:    make([]Node, 0),
