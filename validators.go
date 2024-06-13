@@ -2,6 +2,7 @@ package ssh_config
 
 import (
 	"fmt"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -163,12 +164,12 @@ var defaults = map[string]string{
 
 // these identities are used for SSH protocol 2
 var defaultProtocol2Identities = []string{
-	"~/.ssh/id_rsa",
-	"~/.ssh/id_ecdsa",
-	"~/.ssh/id_ecdsa_sk",
-	"~/.ssh/id_ed25519",
-	"~/.ssh/id_ed25519_sk",
-	"~/.ssh/id_dsa",
+	filepath.Join(homedir(), ".ssh", "id_rsa"),
+	filepath.Join(homedir(), ".ssh", "id_ecdsa"),
+	filepath.Join(homedir(), ".ssh", "id_ecdsa_sk"),
+	filepath.Join(homedir(), ".ssh", "id_ed25519"),
+	filepath.Join(homedir(), ".ssh", "id_ed25519_sk"),
+	filepath.Join(homedir(), ".ssh", "id_dsa"),
 	// "~/.ssh/id_dsa",
 	// "~/.ssh/id_ecdsa",
 	// "~/.ssh/id_ed25519",
